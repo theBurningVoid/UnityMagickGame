@@ -5,6 +5,8 @@ public class PlayerController : MonoBehaviour
     public float speed = 10;
 	Vector2 movementInputVector = new Vector2();
 
+	private Tool equipped;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -33,4 +35,10 @@ public class PlayerController : MonoBehaviour
     {
         
     }
+
+	void Equip(Tool tool) {
+		equipped.EquippedBy(null);
+		equipped = tool;
+		equipped.EquippedBy(this.gameObject);
+	}
 }
