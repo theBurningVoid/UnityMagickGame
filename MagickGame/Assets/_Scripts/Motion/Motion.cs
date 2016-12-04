@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System;
 
 /**
  * This class is meant as both a means of controlling the motion of entities and spells, and
@@ -10,7 +8,7 @@ using System;
  * component subclassing Motion.
 **/
 public abstract class Motion : MonoBehaviour {
-	public float maxSpeed;
+	public float maxSpeed = 5;
 
 	public abstract void SetAngle (float theta);
 
