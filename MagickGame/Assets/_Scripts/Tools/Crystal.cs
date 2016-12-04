@@ -2,20 +2,20 @@
 using UnityEngine;
 
 
-public class Crystal : Tool{
+public class Crystal : Item, Tool{
 
 	void Update() {
 
 	}
 
-	public override void EquippedBy (UnityEngine.GameObject entity)
+	public void EquippedBy (Entity entity)
 	{
-		
+
 	}
 
-	public override void ToggleUse (int id = 0)
+	public void ToggleUse (int id = 0)
 	{
-		
+
 	}
 }
 

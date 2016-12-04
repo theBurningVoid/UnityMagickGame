@@ -10,7 +10,7 @@ using System;
  * component subclassing Motion.
 **/
 public abstract class Motion : MonoBehaviour {
-	public float maxSpeed;
+	public float maxSpeed = 5;
 
 	public abstract void SetAngle (float theta);
 
