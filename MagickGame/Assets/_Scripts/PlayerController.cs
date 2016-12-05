@@ -25,5 +25,7 @@ public class PlayerController : MonoBehaviour
 
 		motion.SetAngle (tempAngle);
 		motion.SetDirection (tempVec);
+
+
 	}
 }
