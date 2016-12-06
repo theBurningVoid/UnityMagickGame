@@ -1,23 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
+using AssemblyCSharp;
 
 public class GameStateController : MonoBehaviour {
 
-	public class PlayerEntity: Entity {
-		void Start() {
-			Init<CircleCollider2D, MotionFlawless> (Resources.Load("player", typeof(Sprite)) as Sprite);
-		}
-	}
-
 	// Use this for initialization
 	void Start () {
-		GameObject g = new GameObject ();
-		g.AddComponent<PlayerController>().Init<PlayerEntity>();
-		//Instantiate (g);
+		EntityFactory.generate (typeof(PlayerEntity), typeof(PlayerController));
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	class PlayerEntity: Entity {
+		void Start() {
+			Init<CircleCollider2D, MotionFlawless> (Resources.Load("player", typeof(Sprite)) as Sprite);
+		}
 	}
 }

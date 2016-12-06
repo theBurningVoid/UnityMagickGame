@@ -3,7 +3,7 @@ using System.Runtime.ConstrainedExecution;
 using System.Security.Cryptography;
 using UnityEditor;
 
-public class PlayerController : MonoBehaviour
+public sealed class PlayerController : MonoBehaviour
 {
 	// Use this for initialization
 	void Start () {
