@@ -31,31 +31,35 @@ public class TestingUIEditor : Editor {
 			switch (current.button) {
 			case 0:
 				UIScript.tileGUIClicked (HandleUtility.GUIPointToWorldRay (current.mousePosition));
+				current.Use ();
 				//Debug.Log ("Left mouse button down at " + eventMousePosition.ToString ());
 				break;
 			case 1://yeah I know 1 should be middle click and 2 right click but unity/maybe c# as i forget which 
+				current.Use ();
 				//Debug.Log ("Right mouse button down at " + eventMousePosition.ToString ());
 				break;
 			case 2:
 				//Debug.Log ("Middle mouse button down at " + eventMousePosition.ToString ());
 				break;
 			}
-			current.Use ();
+			//current.Use ();
 			break;
 
 		case EventType.MouseUp:
 			switch (current.button) {
 			case 0:
+				current.Use ();
 				//Debug.Log ("Left mouse button up at " + eventMousePosition.ToString ());
 				break;
 			case 1:
+				current.Use ();
 				//Debug.Log ("Right mouse button up at " + eventMousePosition.ToString ());
 				break;
 			case 2:
 				//Debug.Log ("Middle mouse button up at " + eventMousePosition.ToString ());
 				break;
 			}
-			current.Use ();
+			//current.Use ();
 			break;
 
 		case EventType.Layout:
