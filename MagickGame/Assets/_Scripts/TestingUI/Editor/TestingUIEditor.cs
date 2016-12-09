@@ -18,6 +18,9 @@ public class TestingUIEditor : Editor {
 		if (GUILayout.Button ("Wall")) {
 			UIScript.placingMode = TestingUIScript.TilePlacingMode.Wall;
 		}
+		if (GUILayout.Button ("Delete All Tiles")) {
+			UIScript.deleteAllTiles ();
+		}
 	}
 
 	public void OnSceneGUI()

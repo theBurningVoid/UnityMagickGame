@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class TestingUIScript : MonoBehaviour {
 	private Dictionary<Vector2, GameObject> tiles = new Dictionary<Vector2, GameObject> ();
-	//private List<GameObject> tiles = new List<GameObject>();
+	
 
 	public GameObject floorTilePrefab;
 	public GameObject wallTilePrefab;
@@ -35,13 +35,12 @@ public class TestingUIScript : MonoBehaviour {
 			tiles.Add(tileSpawnCoords, (GameObject) Instantiate (wallTilePrefab, tileSpawnCoords, Quaternion.identity, this.transform));
 			break;
 		}
+	}
 
-
-
-
-
-
-
-		//GameObject tile = Instantiate (prefabToUse, tileSpawnCoords, Quaternion.identity, this.transform);
+	public void deleteAllTiles()
+	{
+		tiles.Clear ();
+		MiscUtilities.DestroyImmediateAllChildren (this.transform);
+		//Debug.Log ("tiles.count: " + tiles.Count);
 	}
 }
