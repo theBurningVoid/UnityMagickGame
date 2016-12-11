@@ -21,6 +21,9 @@ public class TestingUIEditor : Editor {
 		if (GUILayout.Button ("Delete All Tiles")) {
 			UIScript.deleteAllTiles ();
 		}
+		if (GUILayout.Button ("Load Player Prefab")) {
+			UIScript.load ();
+		}
 	}
 
 	public void OnSceneGUI()

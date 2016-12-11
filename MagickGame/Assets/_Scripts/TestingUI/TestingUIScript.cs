@@ -43,4 +43,8 @@ public class TestingUIScript : MonoBehaviour {
 		MiscUtilities.DestroyImmediateAllChildren (this.transform);
 		//Debug.Log ("tiles.count: " + tiles.Count);
 	}
+
+	public void load(){
+		Instantiate (Resources.Load ("PlayerPrefab"));
+	}
 }
