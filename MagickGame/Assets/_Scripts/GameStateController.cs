@@ -3,20 +3,20 @@ using System.Collections;
 using AssemblyCSharp;
 
 public class GameStateController : MonoBehaviour {
+	EntityFactory.Archetype player = EntityFactory.buildArchetype (typeof(Rigidbody2D), 
+		//new ComponentWrapper(typeof(SpriteRenderer), (System.Type r) => ((SpriteRenderer)r).sprite = 
+			//Resources.Load("player", typeof(Sprite)) as Sprite),
+		typeof(MotionFlawless), typeof(CircleCollider2D), typeof(PlayerController));
 
 	// Use this for initialization
 	void Start () {
-		EntityFactory.generate (typeof(PlayerEntity), typeof(PlayerController));
+		EntityFactory.generate (player);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
+	/*
 	class PlayerEntity: Entity {
 		void Start() {
 			Init<CircleCollider2D, MotionFlawless> (Resources.Load("player", typeof(Sprite)) as Sprite);
 		}
 	}
+	*/
 }

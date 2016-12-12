@@ -7,11 +7,9 @@ public sealed class PlayerController : MonoBehaviour
 {
 	// Use this for initialization
 	void Start () {
-
-	}
-
-	public void Init<E>() where E: Entity {
-		gameObject.AddComponent<E>();
+		if (gameObject.GetComponent<Motion> () == null) {
+			//error
+		}
 	}
 
 	// Update is called once per frame
