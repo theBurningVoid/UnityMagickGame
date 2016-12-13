@@ -1,14 +1,12 @@
 ﻿using UnityEngine;
-using System.Runtime.ConstrainedExecution;
-using System.Security.Cryptography;
-using UnityEditor;
 
 public sealed class PlayerController : MonoBehaviour
 {
 	// Use this for initialization
 	void Start () {
 		if (gameObject.GetComponent<Motion> () == null) {
-			//error
+			throw new Exceptions.InsufficientComponentRequisiteException ("GameObject with attached PlayerController " +
+				"must also have a Motion Component");
 		}
 	}
 
