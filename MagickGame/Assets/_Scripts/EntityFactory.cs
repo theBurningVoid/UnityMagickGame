@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using System;
 
+/* Current rules for modifying component lists:
+ * - Can't have more than one of the same component
+ * - Superclasses are replaced with subclasses
+ * - Archetypes cannot be modified, instead new ones are generated with desired modifications
+ * - Non-archetype modifications are not supported
+ */
 
 public static class EntityFactory
 {
@@ -21,11 +27,16 @@ public static class EntityFactory
 	static ComponentWrapper[] removeDuplicates(ComponentWrapper[] componenents) {
 		List<ComponentWrapper> keeps = new List<ComponentWrapper> ();
 		foreach (ComponentWrapper wrapper in componenents) {
-			if (keeps.FindAll (x => x.value.IsAssignableFrom (wrapper.value)).Count == 0) {//so if a sublcass gets put into keeps and then a superclass comes along it will also be put into keep... allowing for duplicates
+			if (keeps.FindAll (x => wrapper.value.IsAssignableFrom (x.value)).Count == 0) {
+				if (keeps.Remove (keeps.Find (x => x.value.IsAssignableFrom (wrapper.value)))) {
+					throw new Exceptions.ComponentListModifyException ("Superclass of type " + wrapper.value.ToString () +
+						" already found. Replacing superclass with subclass.");
+				}
 				keeps.Add (wrapper);
-			} else 
-				throw new Exceptions.ComponentListModifyException ("Component of type " + wrapper.value.ToString () + 
+			} else {
+				throw new Exceptions.ComponentListModifyException ("Component of type " + wrapper.value.ToString () +
 					" already found. Cannot add.");
+			}
 		}
 		return keeps.ToArray ();
 	}
@@ -37,21 +48,6 @@ public static class EntityFactory
 			this.components = new List<ComponentWrapper>();
 			this.components.AddRange(removeDuplicates(components));
 		}
-			
-		/* Current functionality of with(ComponentWrapper[]):
-		 * 
-		 * Already has Component
-		 * Input ComponentSubclass
-		 * Add
-		 * 
-		 * Already has ComponenetSubclass
-		 * Input Component
-		 * Error
-		 * 
-		 * Already has Component
-		 * Input Component
-		 * Error
-		 */
 
 		/* Returns a new archetype that contains this archetype's components, 
 		 * in addition to the ones in the given components as long as there aren't any 

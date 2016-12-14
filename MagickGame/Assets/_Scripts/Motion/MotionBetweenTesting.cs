@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System;
 
-public class MotionFlawless : MotionBetweenTesting {
+public class MotionBetweenTesting : Motion {
 	public override void SetAngle(float theta) {
 		Rigidbody2D body = gameObject.GetComponent<Rigidbody2D> ();
 
@@ -19,3 +17,4 @@ public class MotionFlawless : MotionBetweenTesting {
 		body.velocity = directionVector * maxSpeed;
 	}
 }
+
