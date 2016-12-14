@@ -21,7 +21,7 @@ public static class EntityFactory
 	static ComponentWrapper[] removeDuplicates(ComponentWrapper[] componenents) {
 		List<ComponentWrapper> keeps = new List<ComponentWrapper> ();
 		foreach (ComponentWrapper wrapper in componenents) {
-			if (keeps.FindAll (x => x.value.IsAssignableFrom (wrapper.value)).Count == 0) {
+			if (keeps.FindAll (x => x.value.IsAssignableFrom (wrapper.value)).Count == 0) {//so if a sublcass gets put into keeps and then a superclass comes along it will also be put into keep... allowing for duplicates
 				keeps.Add (wrapper);
 			} else 
 				throw new Exceptions.ComponentListModifyException ("Component of type " + wrapper.value.ToString () + 
