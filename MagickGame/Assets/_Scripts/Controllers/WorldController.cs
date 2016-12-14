@@ -5,13 +5,17 @@ using Tile;
 public class WorldController : MonoBehaviour {
 	TileData[,] worldTileData;
 
-	public int worldWidth = 100;
-	public int worldHeight = 100;
+	private int worldWidth = 100;
+	private int worldHeight = 100;
+
+	public int minNumRooms = 1;
+	public int maxNumRooms = 1;
+	public int minRoomSize = 1;
+	public int maxRoomSize = 1;
 
 	void Start()
 	{
 		PreInitializeWorld ();
-
 
 	}
 
