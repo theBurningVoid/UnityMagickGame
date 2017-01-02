@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEditor;
 
 public sealed class PlayerController : MonoBehaviour
 {
@@ -7,6 +8,10 @@ public sealed class PlayerController : MonoBehaviour
 		if (gameObject.GetComponent<Motion> () == null) {
 			throw new Exceptions.InsufficientComponentRequisiteException ("GameObject with attached PlayerController " +
 				"must also have a Motion Component");
+		}
+		if (gameObject.GetComponent<Held> () == null) {
+			throw new Exceptions.InsufficientComponentRequisiteException ("GameObject with attached PlayerController " +
+				"must also have a Held Component");
 		}
 	}
 
@@ -22,6 +27,17 @@ public sealed class PlayerController : MonoBehaviour
 		motion.SetAngle (tempAngle);
 		motion.SetDirection (tempVec);
 
-
+		if (Input.GetButtonDown ("Fire1")) {
+			Held held = gameObject.GetComponent<Held> ();
+			if (held.Empty ()) {
+				Vector2 cameraPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+				RaycastHit2D clicked = Physics2D.Raycast (cameraPos, Vector2.zero, 0f);
+				if (clicked.collider != null) {
+					held.Set (clicked.collider.attachedRigidbody);
+				}
+			} else {
+				held.Use (0);
+			}
+		}
 	}
 }
