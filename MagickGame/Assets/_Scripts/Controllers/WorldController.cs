@@ -23,11 +23,11 @@ public class WorldController : MonoBehaviour {
 	{
 		worldTileData = new TileData[worldWidth,worldHeight];
 
-		TileType.clearAndInitializeTileTypes (true);
+		//TileType.clearAndInitializeTileTypes (true);
 
 		for (int x = 0; x < worldWidth; x++) {
 			for (int y = 0; y < worldWidth; y++) {
-				worldTileData [x,y] = new TileData ("Empty");
+				//worldTileData [x,y] = new TileData ("Empty");
 			}
 		}
 	}
