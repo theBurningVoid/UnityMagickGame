@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 namespace Tile {
+	
 	public class TileScript : MonoBehaviour {
 		public void UpdateVisualTileType(TileType newType)
 		{
@@ -22,7 +23,7 @@ namespace Tile {
 				sRen.enabled = false;
 			}
 
-			bColl.enabled = newType.roleID == TileRoleID.FullWall;
+			bColl.enabled = newType.currentRoleID == TileRoleID.FullWall;
 		}
 	}
 
@@ -66,8 +67,8 @@ namespace Tile {
 	}
 
 	public enum TileRoleID{
-								FullWall, //regular wall with 4 sided collision
-								PlainFloor //regular floor tile purely for aesthetics
+		FullWall, //regular wall with 4 sided collision
+		PlainFloor //regular floor tile purely for aesthetics
 	}
 
 	//this class is meant to represent a particular type of tile and its basic properties like texture and facename as well as staticly holding all current available tiletypes
@@ -76,11 +77,43 @@ namespace Tile {
 		public Sprite mainSprite;
 		public string spriteSortingLayerName;
 		public string faceName;//the name that would be displayed ingame for the tiletype
-		public TileRoleID roleID;//is it a wall, floor, door, etc.
+		private TileRoleID oldRoleID;
+		public TileRoleID currentRoleID;
+		private GameObject prefab = null;
+
+		public GameObject GetPrefab()
+		{
+			
+			if (prefab == null || currentRoleID != oldRoleID) {//create a new prefab if either the 
+				prefab = new GameObject (faceName);Debug.Log("Creating a " + faceName + " prefab.");
+				prefab.SetActive (false);
+				SpriteRenderer sRen = prefab.AddComponent<SpriteRenderer> ();
+				sRen.sprite = mainSprite;
+				sRen.sortingLayerID = SortingLayer.NameToID (spriteSortingLayerName);
+				switch (currentRoleID) {
+				case TileRoleID.FullWall: 
+					prefab.AddComponent<BoxCollider2D> ();
+					break;
+				case TileRoleID.PlainFloor:
+					break;
+				}
+				oldRoleID = currentRoleID;
+			}
+
+			return prefab;
+		}
 	}
 
 	[CreateAssetMenu()]
 	public class TileTypePalette : ScriptableObject {
 		public List<TileType> tileTypes = new List<TileType>();
+
+		//will return null if a tiletype with the specified role cannot be found
+		public TileType FindRole(TileRoleID roleID)
+		{
+			return tileTypes.Find ((tType) => tType.currentRoleID == roleID);
+		}
 	}
+
+
 }
