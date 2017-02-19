@@ -84,7 +84,14 @@ namespace Tile {
 		public GameObject GetPrefab()
 		{
 			
-			if (prefab == null || currentRoleID != oldRoleID) {//create a new prefab if either the 
+			if (prefab == null || currentRoleID != oldRoleID) {//create a new prefab if either the prefab has not been originally created yet or the roleID has changed (currentRoleID != oldRoleID)
+				if (prefab != null) {//destroy the old prefab
+					if (Application.isPlaying)//are we in play mode
+						GameObject.Destroy (prefab);
+					else
+						GameObject.DestroyImmediate (prefab);
+				}
+
 				prefab = new GameObject (faceName);Debug.Log("Creating a " + faceName + " prefab.");
 				prefab.SetActive (false);
 				SpriteRenderer sRen = prefab.AddComponent<SpriteRenderer> ();
@@ -114,6 +121,4 @@ namespace Tile {
 			return tileTypes.Find ((tType) => tType.currentRoleID == roleID);
 		}
 	}
-
-
 }
