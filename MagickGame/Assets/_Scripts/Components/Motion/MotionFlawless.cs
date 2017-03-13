@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public class MotionFlawless : MotionBetweenTesting {
+public class MotionFlawless : Motion {
 	public override void SetAngle(float theta) {
 		Rigidbody2D body = gameObject.GetComponent<Rigidbody2D> ();
 

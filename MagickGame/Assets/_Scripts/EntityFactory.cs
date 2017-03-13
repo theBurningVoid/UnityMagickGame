@@ -11,12 +11,14 @@ using System;
 
 public static class EntityFactory
 {
-	public static GameObject generate(params ComponentWrapper[] components) {
+	public static GameObject generate(String name, params ComponentWrapper[] components) {
 		GameObject entity = new GameObject ();
 		foreach(ComponentWrapper wrapper in removeDuplicates(components)) {
 			Component comp = entity.AddComponent (wrapper.value);
 			if(wrapper.action != null) wrapper.action (comp);
 		}
+		entity.name = name;
+		entity.SetActive (false);
 		return entity;
 	}
 
@@ -42,7 +44,7 @@ public static class EntityFactory
 	}
 
 	public class Archetype {
-		List<ComponentWrapper> components;
+		private List<ComponentWrapper> components;
 
 		public Archetype(params ComponentWrapper[] components) {
 			this.components = new List<ComponentWrapper>();
@@ -80,7 +82,7 @@ public static class EntityFactory
 			}
 			return new Archetype (list.ToArray ());
 		}
-		
+
 		/* Returns a new archetype that contains this archetype's components,
 		 * except with the given componenets replacing those that it is an instance of.
 		 */

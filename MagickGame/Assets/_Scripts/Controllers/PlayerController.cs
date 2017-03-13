@@ -17,27 +17,29 @@ public sealed class PlayerController : MonoBehaviour
 
 	// Update is called once per frame
 	void Update () {
+		Vector2 cursorPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 		//Set velocity and rotation manually. WARNING: These aren't assured to interact properly in the physics simulation.
 		//Similarly, if forces and torques are used, do updating in FixedUpdate()
 		Motion motion = gameObject.GetComponent<Motion> ();
+		Held held = gameObject.GetComponent<Held> ();
 
-		float tempAngle = InputUtilities.AngleBetween (transform.position, Camera.main.ScreenToWorldPoint (Input.mousePosition));
+		float tempAngle = InputUtilities.AngleBetween (transform.position, cursorPos);
 		Vector2 tempVec = InputUtilities.GetDualAxis ();
 
 		motion.SetAngle (tempAngle);
 		motion.SetDirection (tempVec);
 
 		if (Input.GetButtonDown ("Fire1")) {
-			Held held = gameObject.GetComponent<Held> ();
-			if (held.Empty ()) {
-				Vector2 cameraPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-				RaycastHit2D clicked = Physics2D.Raycast (cameraPos, Vector2.zero, 0f);
-				if (clicked.collider != null) {
-					held.Set (clicked.collider.attachedRigidbody);
-				}
-			} else {
-				held.Use (0);
+			held.Use ();
+		}
+		if (Input.GetButtonDown ("Interact")) {
+			RaycastHit2D clicked = Physics2D.Raycast (cursorPos, Vector2.zero, 0f);
+			if (clicked.collider != null && Mathf.Abs((transform.position - clicked.collider.transform.position).magnitude) < 5) {
+				held.Set (clicked.collider.attachedRigidbody);
 			}
+		}
+		if (Input.GetButtonDown ("Drop")) {
+			held.Drop ();
 		}
 	}
 }
