@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿//Dispatch this event to cause the Actor to use the Object
 namespace Components.Action.Event {
 	class UseEvent {
 		public readonly EgoComponent Actor, Object;

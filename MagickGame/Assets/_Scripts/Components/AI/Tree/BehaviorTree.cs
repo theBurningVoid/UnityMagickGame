@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Components.AI.Tree;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Components.Behavior_Tree {
+// Base component for storing an entity's behavior tree structure
+namespace Components.AI.Tree {
 	[DisallowMultipleComponent]
 	class BehaviorTree: MonoBehaviour {
 		public TreeNode TrunkNode;

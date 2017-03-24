@@ -1,8 +1,8 @@
 ﻿using Components.Attachment.Event;
-using Components.Attachment;
 using UnityEngine;
 
-namespace Assets._Scripts.Components.Attachment.System {
+// Deals with creating, destroying, and updating attachments 
+namespace Components.Attachment.System {
 	class AttachmentSystem: EgoSystem {
 		public override void Start() {
 			EgoEvents<AttachEvent>.AddHandler(Handle);
@@ -11,7 +11,7 @@ namespace Assets._Scripts.Components.Attachment.System {
 
 		// Handles Attaching Hardpoint-Mountpoint pairs
 		void Handle(AttachEvent e) {
-			Attachments.Hardpoint hardpoint;
+			Hardpoint hardpoint;
 			Mountpoint mountpoint;
 			if (e.Parent != e.Child && e.Parent.TryGetComponents(out hardpoint) && e.Child.TryGetComponents(out mountpoint)) {
 				e.Child.transform.SetParent(e.Parent.transform);
@@ -32,7 +32,7 @@ namespace Assets._Scripts.Components.Attachment.System {
 
 		// Handles Detaching Hardpoint-Mountpoint pairs
 		void Handle(DetachEvent e) {
-			Attachments.Hardpoint hardpoint;
+			Hardpoint hardpoint;
 			if (e.Child.parent.TryGetComponents(out hardpoint)) {
 				e.Child.transform.SetParent(null);
 				Ego.SetParent(null, e.Child);

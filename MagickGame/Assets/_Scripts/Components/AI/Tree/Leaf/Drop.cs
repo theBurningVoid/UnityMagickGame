@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Attachments;
+﻿using Components.Attachment;
 using Components.Attachment.Event;
-using Components.Behavior_Tree;
 using UnityEngine;
 
+// A Leaf Node that causes the actor to drop what it is holding
 namespace Components.AI.Tree.Leaf {
 	[DisallowMultipleComponent]
 	class Drop: TreeNode {

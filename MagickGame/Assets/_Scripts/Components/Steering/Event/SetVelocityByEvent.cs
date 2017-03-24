@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// Dispatch this to move object by a factor of the given velocity, with magnitude clamped to [-1, 1]
 namespace Components.Steering.Event {
 	public class SetVelocityByEvent : EgoEvent {
 		public readonly EgoComponent Actor;

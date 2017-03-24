@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-// A point at which an attachable object attaches itself to some Hardpoint. Also contains relative rotation value.
+// Stores a point at which an attachable object attaches itself to some Hardpoint. Also contains relative rotation value.
 namespace Components.Attachment {
 	[DisallowMultipleComponent]
 	class Mountpoint: MonoBehaviour {

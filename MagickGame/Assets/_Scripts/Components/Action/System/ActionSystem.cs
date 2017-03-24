@@ -1,5 +1,4 @@
 ﻿using Components.Action.Event;
-using UnityEngine;
 
 namespace Components.Action.System {
 	class ActionSystem: EgoSystem {
@@ -8,6 +7,10 @@ namespace Components.Action.System {
 			EgoEvents<UseEvent>.AddHandler(Handle);
 		}
 
+		// TODO: Replace anti-pattern of components storing functionality
+		// Actions should be handled through the AI and Steering/Pathfinding
+
+		// Handles calling interaction function
 		void Handle(InteractEvent e) {
 			Interactive interactive;
 			if (e.Object.TryGetComponents(out interactive)) {
@@ -15,6 +18,7 @@ namespace Components.Action.System {
 			}
 		}
 
+		// Handles calling use function
 		void Handle(UseEvent e) {
 			Useable useable;
 			if (e.Object.TryGetComponents(out useable)) {

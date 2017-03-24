@@ -2,7 +2,8 @@
 using Components.Steering;
 using UnityEngine;
 
-namespace Assets._Scripts {
+// Builder that creates and helps define entities (GameObjects)
+namespace Entity {
 	class EntityBuilder {
 		public EgoComponent Entity;
 

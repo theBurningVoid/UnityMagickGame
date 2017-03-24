@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Attachments;
-using Components.Action.Event;
-using Components.AI.Tree;
+﻿using Components.Action.Event;
+using Components.Attachment;
 
+// A leaf node that causes the actor to use the object it is holding
 namespace Components.AI.Tree.Leaf {
 	class Use: TreeNode {
 		public override State Act(EgoComponent root) {

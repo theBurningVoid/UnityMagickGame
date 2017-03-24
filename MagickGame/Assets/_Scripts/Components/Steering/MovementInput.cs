@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 
+// Stores the input axes by which the attached entity determines its movement
 namespace Components.Steering {
 	public class MovementInput: MonoBehaviour {
 		public string HorizontalAxis = "Horizontal";

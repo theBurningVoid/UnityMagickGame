@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-// Dispatch this event to create a Hardpoint-Mountpoint connection and parent the objects.
+﻿// Dispatch this event to create a Hardpoint-Mountpoint connection and parent the objects.
 namespace Components.Attachment.Event {
 	class AttachEvent: EgoEvent {
 		// Child must have a Mountpoint component, Parent must have a Hardpoint component, Child must not equal Parent.

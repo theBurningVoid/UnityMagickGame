@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+// Stores the maximum angular and linear velocities and accelerations of the attached entity 
 namespace Components.Steering {
 	[DisallowMultipleComponent]
 	class MovementLimiter: MonoBehaviour {

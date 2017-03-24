@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Components.Behavior_Tree;
-
-// Tries all of it's children, and returns SUCCESS if at least one succeeded, otherwise returns FAILURE
+﻿// A SelectorNode that tries all of it's children, and returns SUCCESS if at least one succeeded, otherwise returns FAILURE
 namespace Components.AI.Tree.Selector {
 	class SelectorAll: SelectorNode {
 		public SelectorAll(params TreeNode[] children): base(children) {}

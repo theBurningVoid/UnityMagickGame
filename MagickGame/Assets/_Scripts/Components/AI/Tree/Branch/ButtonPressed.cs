@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Components.Behavior_Tree;
 using UnityEngine;
 
+// A BranchNode that passes to its child if a certain button has just been pressed.
 namespace Components.AI.Tree.Branch {
 	class ButtonPressed : BranchNode {
 		public String Button;

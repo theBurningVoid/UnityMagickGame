@@ -1,4 +1,5 @@
-﻿namespace Components.Steering.Event {
+﻿// Dispatch this to rotate object to given angle, in radians
+namespace Components.Steering.Event {
 	class RotateToEvent: EgoEvent {
 		public readonly EgoComponent Actor;
 		public readonly float TargetFacing;
