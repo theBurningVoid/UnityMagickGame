@@ -90,9 +90,7 @@ public static class EgoEvents
 	}
 }
 
-public static class EgoEvents<E>
-	where E : EgoEvent
-{
+public static class EgoEvents<E> {
 	static List<E> _events = new List<E>();
 	static List<Action<E>> _handlers = new List<Action<E>>();
 

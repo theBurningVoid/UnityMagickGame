@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
+using System.Runtime.CompilerServices;
 
 /* Current rules for modifying component lists:
  * - Can't have more than one of the same component
@@ -18,7 +19,7 @@ public static class EntityFactory
 			if(wrapper.action != null) wrapper.action (comp);
 		}
 		entity.name = name;
-		entity.SetActive (false);
+		//entity.SetActive (false);
 		return entity;
 	}
 

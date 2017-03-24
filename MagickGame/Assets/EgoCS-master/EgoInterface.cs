@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
+using Assets._Scripts.Components.Attachment.System;
+using Components.AI.System;
+using Components.Action.System;
 
-public class EgoInterface : MonoBehaviour
-{
+public class EgoInterface : MonoBehaviour {
 	static EgoInterface()
 	{
-        //Add Systems here:
-        //EgoSystems.Add(
-        //    ...
-        //);
-    }
+		EgoSystems.Add(
+			new AttachmentSystem(),
+			new ActionSystem(),
+			new MovementSystem(), 
+			new BehaviorTreeSystem()
+		);
+	}
 
     void Start()
     {
