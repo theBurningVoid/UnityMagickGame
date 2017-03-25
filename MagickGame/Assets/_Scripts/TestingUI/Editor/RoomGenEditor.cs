@@ -13,8 +13,8 @@ public class RoomGenEditor : Editor {
 
 		RoomGenScript.WingType wingType = genScript.wingType;
 
-		if (GUILayout.Button ("Generate Room")) {
-			genScript.GenerateRoom ();
+		if (GUILayout.Button ("Generate Blank Room")) {
+			genScript.GenerateBlankRoom ();
 		}
 		if (GUILayout.Button ("Clear Room")) {
 			genScript.ClearRoom ();
