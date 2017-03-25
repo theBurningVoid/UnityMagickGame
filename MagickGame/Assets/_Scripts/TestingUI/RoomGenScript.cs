@@ -58,35 +58,35 @@ public class RoomGenScript : MonoBehaviour {
 		Quaternion right = Quaternion.Euler(0, 0, 270);
 
 		Vector2 coords = new Vector2 (0, 0);
-		tiles.Add(coords, Instantiate (cornerWallTile, coords, reverse, this.transform) as GameObject);//bottomLeft corner
+		tiles.Add(coords, Instantiate (cornerWallTile, coords, Quaternion.identity, this.transform) as GameObject);//bottomLeft corner
 
 		for (int i = 1; i < roomWidth - 1; i++) {//bottom edge of walls from left to right 
 			coords = new Vector2 (i, 0);
-			tiles.Add(coords, Instantiate (wallTile, coords, reverse, this.transform) as GameObject);
-		}
-
-		coords = new Vector2 (roomWidth - 1, 0);
-		tiles.Add(coords, (GameObject) Instantiate (cornerWallTile, coords, right, this.transform));//bottomRight corner
-
-		for (int i = 1; i < roomHeight - 1; i++) {//right edge of walls from bottom to top 
-			coords = new Vector2 (roomWidth - 1, i);
-			tiles.Add(coords, Instantiate (wallTile, coords, right, this.transform) as GameObject);
-		}
-
-		coords = new Vector2 (roomWidth - 1, roomHeight - 1);
-		tiles.Add(coords, Instantiate (cornerWallTile, coords, Quaternion.identity, this.transform) as GameObject);//topRight corner
-
-		for (int i = 1; i < roomWidth - 1; i++) {//top edge of walls from left to right 
-			coords = new Vector2 (i, roomHeight - 1);
 			tiles.Add(coords, Instantiate (wallTile, coords, Quaternion.identity, this.transform) as GameObject);
 		}
 
+		coords = new Vector2 (roomWidth - 1, 0);
+		tiles.Add(coords, (GameObject) Instantiate (cornerWallTile, coords, left, this.transform));//bottomRight corner
+
+		for (int i = 1; i < roomHeight - 1; i++) {//right edge of walls from bottom to top 
+			coords = new Vector2 (roomWidth - 1, i);
+			tiles.Add(coords, Instantiate (wallTile, coords, left, this.transform) as GameObject);
+		}
+
+		coords = new Vector2 (roomWidth - 1, roomHeight - 1);
+		tiles.Add(coords, Instantiate (cornerWallTile, coords, reverse, this.transform) as GameObject);//topRight corner
+
+		for (int i = 1; i < roomWidth - 1; i++) {//top edge of walls from left to right 
+			coords = new Vector2 (i, roomHeight - 1);
+			tiles.Add(coords, Instantiate (wallTile, coords, reverse, this.transform) as GameObject);
+		}
+
 		coords = new Vector2 (0, roomHeight - 1);
-		tiles.Add(coords, Instantiate (cornerWallTile, coords, left, this.transform) as GameObject);//topLeft corner
+		tiles.Add(coords, Instantiate (cornerWallTile, coords, right, this.transform) as GameObject);//topLeft corner
 
 		for (int i = 1; i < roomHeight - 1; i++) {//left edge of walls from bottom to top 
 			coords = new Vector2 (0, i);
-			tiles.Add(coords, Instantiate (wallTile, coords, left, this.transform) as GameObject);
+			tiles.Add(coords, Instantiate (wallTile, coords, right, this.transform) as GameObject);
 		}
 
 		//floor tiles column by column left to right, bottom to top
