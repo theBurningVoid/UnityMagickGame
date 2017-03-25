@@ -31,7 +31,7 @@ public class RoomGenScript : MonoBehaviour {
 
 	public string saveAsName;
 
-	public void GenerateRoom () {
+	public void GenerateBlankRoom () {
 		GameObject floorTile = Resources.Load("Tiles/" + getPrefabResourcesPath(wingType) + wingType.ToString() + "Floor") as GameObject;
 		GameObject wallTile = Resources.Load("Tiles/" + getPrefabResourcesPath(wingType) + wingType.ToString() + "Wall") as GameObject;
 		GameObject cornerWallTile = Resources.Load("Tiles/" + getPrefabResourcesPath(wingType) + wingType.ToString() + "Corner") as GameObject;
