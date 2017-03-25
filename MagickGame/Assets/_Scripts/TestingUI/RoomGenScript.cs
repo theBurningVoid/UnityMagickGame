@@ -29,6 +29,7 @@ public class RoomGenScript : MonoBehaviour {
 	[Range(5,63)]
 	public int roomHeight = 5;
 
+	public string saveAsName;
 
 	public void GenerateRoom () {
 		GameObject floorTile = Resources.Load("Tiles/" + getPrefabResourcesPath(wingType) + wingType.ToString() + "Floor") as GameObject;
