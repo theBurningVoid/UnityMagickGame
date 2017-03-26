@@ -58,40 +58,42 @@ public class RoomGenScript : MonoBehaviour {
 		Quaternion leftEdge = Quaternion.Euler(0, 0, 270);
 
 		Vector2 coords = new Vector2 (0, 0);
-		tiles.Add(coords, Instantiate (cornerWallTile, coords, Quaternion.identity, this.transform) as GameObject);//bottomLeft corner
+		tiles.Add(coords, Ego.AddGameObject(Instantiate (cornerWallTile, coords, Quaternion.identity, this.transform) as GameObject).gameObject);//bottomLeft corner
 
 		coords = new Vector2 (roomWidth - 1, 0);
-		tiles.Add(coords, Instantiate (cornerWallTile, coords, rightEdge, this.transform) as GameObject);//bottomRight corner
+		tiles.Add(coords, Ego.AddGameObject(Instantiate (cornerWallTile, coords, rightEdge, this.transform) as GameObject).gameObject);//bottomRight corner
 
 		coords = new Vector2 (roomWidth - 1, roomHeight - 1);
-		tiles.Add(coords, Instantiate (cornerWallTile, coords, topEdge, this.transform) as GameObject);//topRight corner
+		tiles.Add(coords, Ego.AddGameObject(Instantiate (cornerWallTile, coords, topEdge, this.transform) as GameObject).gameObject);//topRight corner
 
 		coords = new Vector2 (0, roomHeight - 1);
-		tiles.Add(coords, Instantiate (cornerWallTile, coords, leftEdge, this.transform) as GameObject);//topLeft corner
+		tiles.Add(coords, Ego.AddGameObject(Instantiate (cornerWallTile, coords, leftEdge, this.transform) as GameObject).gameObject);//topLeft corner
 
 		for (int i = 1; i < roomWidth - 1; i++) {//from left to right 
 			coords = new Vector2 (i, 0);//bottom edge of walls
-			tiles.Add(coords, Instantiate (wallTile, coords, Quaternion.identity, this.transform) as GameObject);
+			tiles.Add(coords, Ego.AddGameObject(Instantiate (wallTile, coords, Quaternion.identity, this.transform) as GameObject).gameObject);
 
 			coords = new Vector2 (i, roomHeight - 1);//top edge of walls
-			tiles.Add(coords, Instantiate (wallTile, coords, topEdge, this.transform) as GameObject);
+			tiles.Add(coords, Ego.AddGameObject(Instantiate (wallTile, coords, topEdge, this.transform) as GameObject).gameObject);
 		}
 
 		for (int i = 1; i < roomHeight - 1; i++) {//bottom to top 
 			coords = new Vector2 (roomWidth - 1, i);//right edge of walls
-			tiles.Add(coords, Instantiate (wallTile, coords, rightEdge, this.transform) as GameObject);
+			tiles.Add(coords, Ego.AddGameObject(Instantiate (wallTile, coords, rightEdge, this.transform) as GameObject).gameObject);
 
 			coords = new Vector2 (0, i);//left edge of walls
-			tiles.Add(coords, Instantiate (wallTile, coords, leftEdge, this.transform) as GameObject);
+			tiles.Add(coords, Ego.AddGameObject(Instantiate (wallTile, coords, leftEdge, this.transform) as GameObject).gameObject);
 		}
 
 		//floor tiles column by column left to right, bottom to top
 		for (int x = 1; x < roomWidth - 1; x++) {
 			for (int y = 1; y < roomHeight - 1; y++) {
 				coords = new Vector2 (x, y);
-				tiles.Add(coords, Instantiate (floorTile, coords, Quaternion.identity, this.transform) as GameObject);
+				tiles.Add(coords, Ego.AddGameObject(Instantiate (floorTile, coords, Quaternion.identity, this.transform) as GameObject).gameObject);
 			}
 		}
+
+
 	}
 
 	//removes all tiles and room defining components from this room and clear the dictionary references to said tiles to make it a or clear room
