@@ -43,9 +43,8 @@ namespace Components.Attachment.System {
 					rigidbody2D.isKinematic=false;
 					rigidbody2D.simulated=true;
 				}
+				hardpoint.Attached=null;
 			}
-
-			hardpoint.Attached = null;
 		}
 	}
 }
