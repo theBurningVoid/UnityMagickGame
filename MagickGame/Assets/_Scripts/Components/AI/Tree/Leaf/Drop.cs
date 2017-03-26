@@ -6,13 +6,13 @@ using UnityEngine;
 namespace Components.AI.Tree.Leaf {
 	[DisallowMultipleComponent]
 	class Drop: TreeNode {
-		public override State Act(EgoComponent root) {
+		public override CompletionState Act(EgoComponent root) {
 			Hardpoint hardpoint;
 			if (root.TryGetComponents(out hardpoint) && hardpoint.Attached != null) {
 				EgoEvents<DetachEvent>.AddEvent(new DetachEvent(hardpoint.Attached));
-				return State.SUCCESS;
+				return CompletionState.SUCCESS;
 			}
-			return State.FAIL;
+			return CompletionState.FAIL;
 		}
 	}
 }

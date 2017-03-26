@@ -10,11 +10,11 @@ namespace Components.AI.Tree.Branch {
 			Button=button;
 		}
 
-		public override State Act(EgoComponent root) {
+		public override CompletionState Act(EgoComponent root) {
 			if (Input.GetButtonDown(Button)) {
 				return Child.Act(root);
 			}
-			return State.FAIL;
+			return CompletionState.FAIL;
 		}
 	}
 }
