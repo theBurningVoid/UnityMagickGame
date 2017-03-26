@@ -93,6 +93,30 @@ public class RoomGenScript : MonoBehaviour {
 			}
 		}
 
+		EgoComponent egoComp = this.GetComponent<EgoComponent> ();
+		if (egoComp == null) {
+			Ego.AddGameObject (this.gameObject);
+			egoComp = this.GetComponent<EgoComponent> ();
+		}
+
+
+		//bottom Collider
+		BoxCollider2D bCol = Ego.AddComponent<BoxCollider2D> (egoComp);
+		bCol.size.Set (roomWidth, 1);
+		bCol.offset.Set ((roomWidth - 1) / 2f, 0);
+		//top Collider
+		bCol = Ego.AddComponent<BoxCollider2D> (egoComp);
+		bCol.size.Set (roomWidth, 1);
+		bCol.offset.Set ((roomWidth - 1) / 2f, roomHeight - 1);
+		//left Collider
+		bCol = Ego.AddComponent<BoxCollider2D> (egoComp);
+		bCol.size.Set (1, roomHeight);
+		bCol.offset.Set (0, (roomWidth - 1) / 2f);
+		//right Collider
+		bCol = Ego.AddComponent<BoxCollider2D> (egoComp);
+		bCol.size.Set (1, roomHeight);
+		bCol.offset.Set (roomWidth - 1, (roomWidth - 1) / 2f);
+
 
 	}
 
@@ -100,6 +124,12 @@ public class RoomGenScript : MonoBehaviour {
 	public void ClearRoom () {
 		tiles.Clear ();
 		MiscUtilities.DestroyImmediateAllChildren (this.transform);
+
+		BoxCollider2D bCol = this.GetComponent<BoxCollider2D> ();
+		while (bCol != null) {
+			DestroyImmediate (bCol);
+			bCol = this.GetComponent<BoxCollider2D> ();
+		}
 	}
 
 }
