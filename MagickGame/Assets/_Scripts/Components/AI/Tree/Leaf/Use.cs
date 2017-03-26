@@ -1,5 +1,5 @@
-﻿using Components.Action.Event;
-using Components.Attachment;
+﻿using Components.Attachment;
+using Systems.Events;
 
 // A leaf node that causes the actor to use the object it is holding
 namespace Components.AI.Tree.Leaf {

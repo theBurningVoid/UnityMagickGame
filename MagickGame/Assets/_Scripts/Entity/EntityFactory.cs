@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System;
-using Components.Attachment.Event;
 using Components.Steering;
 using Components.Action;
 using Components.AI.Tree;
@@ -8,7 +7,7 @@ using Components.AI.Tree.Branch;
 using Components.AI.Tree.Leaf;
 using Components.AI.Tree.Selector;
 using Components.Attachment;
-using Components.Steering.Event;
+using Systems.Events;
 
 // Factory-style initializer for entities
 namespace Entity {

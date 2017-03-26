@@ -1,8 +1,5 @@
 ﻿using UnityEngine;
-using Components.AI.System;
-using Components.Action.System;
-using Components.Attachment.System;
-using Components.Steering.System;
+using Systems;
 
 public class EgoInterface : MonoBehaviour {
 	static EgoInterface()
