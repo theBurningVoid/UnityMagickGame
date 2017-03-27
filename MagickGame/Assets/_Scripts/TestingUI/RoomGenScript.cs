@@ -104,46 +104,52 @@ public class RoomGenScript : MonoBehaviour {
 		}
 		#endregion
 
-		//make sure we are part of EgoCS
+		//make this a part of EgoCS
+		Ego.AddGameObject (this.gameObject);
 		EgoComponent egoComp = this.GetComponent<EgoComponent> ();
-		if (egoComp == null) {
-			Ego.AddGameObject (this.gameObject);
-			egoComp = this.GetComponent<EgoComponent> ();
-		}
 
+		#region PolygonColliderCreation
 		PolygonCollider2D pCol = Ego.AddComponent<PolygonCollider2D> (egoComp);
 		pCol.pathCount = 2;
 
 		//setting up first path, which defines the outer bounds
 		Vector2[] path1 = new Vector2[4];
-		path1[0] = new Vector2(0, 0);//bottomLeft
-		path1[1] = new Vector2(roomWidth, 0);//bottomRight
-		path1[2] = new Vector2(roomWidth, roomHeight);//topRight
-		path1[3] = new Vector2(0, roomHeight);//topBottom
+		path1 [0] = new Vector2 (0, 0);//bottomLeft
+		path1 [1] = new Vector2 (roomWidth, 0);//bottomRight
+		path1 [2] = new Vector2 (roomWidth, roomHeight);//topRight
+		path1 [3] = new Vector2 (0, roomHeight);//topBottom
 		//setting up second path, which defines the inner bounds (ie the bounds the player will be interacting with)
 		Vector2[] path2 = new Vector2[4];
-		path2[0] = new Vector2(1, 1);//bottomLeft
-		path2[1] = new Vector2(roomWidth - 1, 1);//bottomRight
-		path2[2] = new Vector2(roomWidth - 1, roomHeight - 1);//topRight
-		path2[3] = new Vector2(1, roomHeight - 1);//topBottom
+		path2 [0] = new Vector2 (1, 1);//bottomLeft
+		path2 [1] = new Vector2 (roomWidth - 1, 1);//bottomRight
+		path2 [2] = new Vector2 (roomWidth - 1, roomHeight - 1);//topRight
+		path2 [3] = new Vector2 (1, roomHeight - 1);//topBottom
 
 		pCol.SetPath (0, path1);
 		pCol.SetPath (1, path2);
 
 		//this way a point vertex of (0,0) will be the bottomLeft corner of the bottomleft corner tile
-		pCol.offset = new Vector2(-0.5f, -0.5f);
+		pCol.offset = new Vector2 (-0.5f, -0.5f);
+		#endregion
 	}
 
 	//removes all tiles and room defining components from this room and clear the dictionary references to said tiles to make it a or clear room
 	public void ClearRoom () {
+		//destroy all tiles
 		tiles.Clear ();
 		MiscUtilities.DestroyImmediateAllChildren (this.transform);
 
-//		BoxCollider2D bCol = this.GetComponent<BoxCollider2D> ();
-//		while (bCol != null) {
-//			DestroyImmediate (bCol);
-//			bCol = this.GetComponent<BoxCollider2D> ();
-//		}
+		//destroy the collider responsible for the walls
+		PolygonCollider2D pCol = this.GetComponent<PolygonCollider2D> ();
+		if (pCol != null) {
+			DestroyImmediate (pCol);
+		}
+
+		//remove this.gameobject from EgoCS due to DestroyImmediate invalidating its information on this.gameobject
+		EgoComponent egoComp = this.GetComponent<EgoComponent> ();
+		if (egoComp != null) {
+			DestroyImmediate (egoComp);
+		}
 	}
 
 }
