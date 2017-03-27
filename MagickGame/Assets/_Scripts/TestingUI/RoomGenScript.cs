@@ -34,65 +34,77 @@ public class RoomGenScript : MonoBehaviour {
 	private Dictionary<Vector2, GameObject> tiles = new Dictionary<Vector2, GameObject> ();
 
 	public void GenerateBlankRoom () {
+		
 		GameObject floorTile = Resources.Load("Tiles/" + getPrefabResourcesPath(wingType) + wingType.ToString() + "Floor") as GameObject;
 		GameObject wallTile = Resources.Load("Tiles/" + getPrefabResourcesPath(wingType) + wingType.ToString() + "Wall") as GameObject;
 		GameObject cornerWallTile = Resources.Load("Tiles/" + getPrefabResourcesPath(wingType) + wingType.ToString() + "Corner") as GameObject;
 
+		#region TileInputValidation
 		if (floorTile == null) {
-			Debug.Log ("floorTile is null, perhaps the asset has been moved/deleted or the path Tiles/" + wingType.ToString() + "Wing/ is incorrect?");
+			Debug.Log ("floorTile is null, perhaps the asset has been moved/deleted or the path Tiles/" + wingType.ToString () + "Wing/ is incorrect?");
 		}
 		if (wallTile == null) {
-			Debug.Log ("wallTile is null, perhaps the asset has been moved/deleted or the path Tiles/" + wingType.ToString() + "Wing/ is incorrect?");
+			Debug.Log ("wallTile is null, perhaps the asset has been moved/deleted or the path Tiles/" + wingType.ToString () + "Wing/ is incorrect?");
 		}
 		if (cornerWallTile == null) {
-			Debug.Log ("cornerWallTile is null, perhaps the asset has been moved/deleted or the path Tiles/" + wingType.ToString() + "Wing/ is incorrect?");
+			Debug.Log ("cornerWallTile is null, perhaps the asset has been moved/deleted or the path Tiles/" + wingType.ToString () + "Wing/ is incorrect?");
 		}
 		if (floorTile == null || wallTile == null || cornerWallTile == null) {
 			Debug.Log ("Not all of the tiles loaded correctly, aborting room generation.");
 			return;
 		}
+		#endregion
+
 		ClearRoom ();
 		
 		Quaternion rightEdge = Quaternion.Euler(0, 0, 90);
 		Quaternion topEdge = Quaternion.Euler(0, 0, 180);
 		Quaternion leftEdge = Quaternion.Euler(0, 0, 270);
 
+
+		#region CornerTileCreation
 		Vector2 coords = new Vector2 (0, 0);
-		tiles.Add(coords, Ego.AddGameObject(Instantiate (cornerWallTile, coords, Quaternion.identity, this.transform) as GameObject).gameObject);//bottomLeft corner
+		tiles.Add (coords, Ego.AddGameObject (Instantiate (cornerWallTile, coords, Quaternion.identity, this.transform) as GameObject).gameObject);//bottomLeft corner
 
 		coords = new Vector2 (roomWidth - 1, 0);
-		tiles.Add(coords, Ego.AddGameObject(Instantiate (cornerWallTile, coords, rightEdge, this.transform) as GameObject).gameObject);//bottomRight corner
+		tiles.Add (coords, Ego.AddGameObject (Instantiate (cornerWallTile, coords, rightEdge, this.transform) as GameObject).gameObject);//bottomRight corner
 
 		coords = new Vector2 (roomWidth - 1, roomHeight - 1);
-		tiles.Add(coords, Ego.AddGameObject(Instantiate (cornerWallTile, coords, topEdge, this.transform) as GameObject).gameObject);//topRight corner
+		tiles.Add (coords, Ego.AddGameObject (Instantiate (cornerWallTile, coords, topEdge, this.transform) as GameObject).gameObject);//topRight corner
 
 		coords = new Vector2 (0, roomHeight - 1);
-		tiles.Add(coords, Ego.AddGameObject(Instantiate (cornerWallTile, coords, leftEdge, this.transform) as GameObject).gameObject);//topLeft corner
+		tiles.Add (coords, Ego.AddGameObject (Instantiate (cornerWallTile, coords, leftEdge, this.transform) as GameObject).gameObject);//topLeft corner
+		#endregion
 
+		#region WallTileCreation
 		for (int i = 1; i < roomWidth - 1; i++) {//from left to right 
 			coords = new Vector2 (i, 0);//bottom edge of walls
-			tiles.Add(coords, Ego.AddGameObject(Instantiate (wallTile, coords, Quaternion.identity, this.transform) as GameObject).gameObject);
+			tiles.Add (coords, Ego.AddGameObject (Instantiate (wallTile, coords, Quaternion.identity, this.transform) as GameObject).gameObject);
 
 			coords = new Vector2 (i, roomHeight - 1);//top edge of walls
-			tiles.Add(coords, Ego.AddGameObject(Instantiate (wallTile, coords, topEdge, this.transform) as GameObject).gameObject);
+			tiles.Add (coords, Ego.AddGameObject (Instantiate (wallTile, coords, topEdge, this.transform) as GameObject).gameObject);
 		}
 
 		for (int i = 1; i < roomHeight - 1; i++) {//bottom to top 
 			coords = new Vector2 (roomWidth - 1, i);//right edge of walls
-			tiles.Add(coords, Ego.AddGameObject(Instantiate (wallTile, coords, rightEdge, this.transform) as GameObject).gameObject);
+			tiles.Add (coords, Ego.AddGameObject (Instantiate (wallTile, coords, rightEdge, this.transform) as GameObject).gameObject);
 
 			coords = new Vector2 (0, i);//left edge of walls
-			tiles.Add(coords, Ego.AddGameObject(Instantiate (wallTile, coords, leftEdge, this.transform) as GameObject).gameObject);
+			tiles.Add (coords, Ego.AddGameObject (Instantiate (wallTile, coords, leftEdge, this.transform) as GameObject).gameObject);
 		}
+		#endregion
 
+		#region FloorTileCreation
 		//floor tiles column by column left to right, bottom to top
 		for (int x = 1; x < roomWidth - 1; x++) {
 			for (int y = 1; y < roomHeight - 1; y++) {
 				coords = new Vector2 (x, y);
-				tiles.Add(coords, Ego.AddGameObject(Instantiate (floorTile, coords, Quaternion.identity, this.transform) as GameObject).gameObject);
+				tiles.Add (coords, Ego.AddGameObject (Instantiate (floorTile, coords, Quaternion.identity, this.transform) as GameObject).gameObject);
 			}
 		}
+		#endregion
 
+		//make sure we are part of EgoCS
 		EgoComponent egoComp = this.GetComponent<EgoComponent> ();
 		if (egoComp == null) {
 			Ego.AddGameObject (this.gameObject);
@@ -100,24 +112,25 @@ public class RoomGenScript : MonoBehaviour {
 		}
 
 
-		//bottom Collider
-		BoxCollider2D bCol = Ego.AddComponent<BoxCollider2D> (egoComp);
-		bCol.size.Set (roomWidth, 1);
-		bCol.offset.Set ((roomWidth - 1) / 2f, 0);
-		//top Collider
-		bCol = Ego.AddComponent<BoxCollider2D> (egoComp);
-		bCol.size.Set (roomWidth, 1);
-		bCol.offset.Set ((roomWidth - 1) / 2f, roomHeight - 1);
-		//left Collider
-		bCol = Ego.AddComponent<BoxCollider2D> (egoComp);
-		bCol.size.Set (1, roomHeight);
-		bCol.offset.Set (0, (roomWidth - 1) / 2f);
-		//right Collider
-		bCol = Ego.AddComponent<BoxCollider2D> (egoComp);
-		bCol.size.Set (1, roomHeight);
-		bCol.offset.Set (roomWidth - 1, (roomWidth - 1) / 2f);
 
 
+
+//		//bottom Collider
+//		BoxCollider2D bCol = Ego.AddComponent<BoxCollider2D> (egoComp);
+//		bCol.size.Set (roomWidth, 1);
+//		bCol.offset.Set ((roomWidth - 1) / 2f, 0);
+//		//top Collider
+//		bCol = Ego.AddComponent<BoxCollider2D> (egoComp);
+//		bCol.size.Set (roomWidth, 1);
+//		bCol.offset.Set ((roomWidth - 1) / 2f, roomHeight - 1);
+//		//left Collider
+//		bCol = Ego.AddComponent<BoxCollider2D> (egoComp);
+//		bCol.size.Set (1, roomHeight);
+//		bCol.offset.Set (0, (roomWidth - 1) / 2f);
+//		//right Collider
+//		bCol = Ego.AddComponent<BoxCollider2D> (egoComp);
+//		bCol.size.Set (1, roomHeight);
+//		bCol.offset.Set (roomWidth - 1, (roomWidth - 1) / 2f);
 	}
 
 	//removes all tiles and room defining components from this room and clear the dictionary references to said tiles to make it a or clear room
@@ -125,11 +138,11 @@ public class RoomGenScript : MonoBehaviour {
 		tiles.Clear ();
 		MiscUtilities.DestroyImmediateAllChildren (this.transform);
 
-		BoxCollider2D bCol = this.GetComponent<BoxCollider2D> ();
-		while (bCol != null) {
-			DestroyImmediate (bCol);
-			bCol = this.GetComponent<BoxCollider2D> ();
-		}
+//		BoxCollider2D bCol = this.GetComponent<BoxCollider2D> ();
+//		while (bCol != null) {
+//			DestroyImmediate (bCol);
+//			bCol = this.GetComponent<BoxCollider2D> ();
+//		}
 	}
 
 }
