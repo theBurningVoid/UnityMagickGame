@@ -111,26 +111,27 @@ public class RoomGenScript : MonoBehaviour {
 			egoComp = this.GetComponent<EgoComponent> ();
 		}
 
+		PolygonCollider2D pCol = Ego.AddComponent<PolygonCollider2D> (egoComp);
+		pCol.pathCount = 2;
 
+		//setting up first path, which defines the outer bounds
+		Vector2[] path1 = new Vector2[4];
+		path1[0] = new Vector2(0, 0);//bottomLeft
+		path1[1] = new Vector2(roomWidth, 0);//bottomRight
+		path1[2] = new Vector2(roomWidth, roomHeight);//topRight
+		path1[3] = new Vector2(0, roomHeight);//topBottom
+		//setting up second path, which defines the inner bounds (ie the bounds the player will be interacting with)
+		Vector2[] path2 = new Vector2[4];
+		path2[0] = new Vector2(1, 1);//bottomLeft
+		path2[1] = new Vector2(roomWidth - 1, 1);//bottomRight
+		path2[2] = new Vector2(roomWidth - 1, roomHeight - 1);//topRight
+		path2[3] = new Vector2(1, roomHeight - 1);//topBottom
 
+		pCol.SetPath (0, path1);
+		pCol.SetPath (1, path2);
 
-
-//		//bottom Collider
-//		BoxCollider2D bCol = Ego.AddComponent<BoxCollider2D> (egoComp);
-//		bCol.size.Set (roomWidth, 1);
-//		bCol.offset.Set ((roomWidth - 1) / 2f, 0);
-//		//top Collider
-//		bCol = Ego.AddComponent<BoxCollider2D> (egoComp);
-//		bCol.size.Set (roomWidth, 1);
-//		bCol.offset.Set ((roomWidth - 1) / 2f, roomHeight - 1);
-//		//left Collider
-//		bCol = Ego.AddComponent<BoxCollider2D> (egoComp);
-//		bCol.size.Set (1, roomHeight);
-//		bCol.offset.Set (0, (roomWidth - 1) / 2f);
-//		//right Collider
-//		bCol = Ego.AddComponent<BoxCollider2D> (egoComp);
-//		bCol.size.Set (1, roomHeight);
-//		bCol.offset.Set (roomWidth - 1, (roomWidth - 1) / 2f);
+		//this way a point vertex of (0,0) will be the bottomLeft corner of the bottomleft corner tile
+		pCol.offset = new Vector2(-0.5f, -0.5f);
 	}
 
 	//removes all tiles and room defining components from this room and clear the dictionary references to said tiles to make it a or clear room

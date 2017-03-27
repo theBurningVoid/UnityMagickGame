@@ -19,3 +19,24 @@ C:\Users\Xechon\Documents\Unity Projects\UnityMagickGame\MagickGame\Temp\bin\Deb
 C:\Users\Xechon\Documents\Unity Projects\UnityMagickGame\MagickGame\Temp\bin\Debug\UnityEngine.Networking.xml
 C:\Users\Xechon\Documents\Unity Projects\UnityMagickGame\MagickGame\obj\Debug\Assembly-CSharp.dll
 C:\Users\Xechon\Documents\Unity Projects\UnityMagickGame\MagickGame\obj\Debug\Assembly-CSharp.pdb
+C:\Users\jruec_000\Documents\GitHubUnityStuff\UnityMagickGame\MagickGame\Temp\bin\Debug\Assembly-CSharp.dll
+C:\Users\jruec_000\Documents\GitHubUnityStuff\UnityMagickGame\MagickGame\Temp\bin\Debug\Assembly-CSharp.pdb
+C:\Users\jruec_000\Documents\GitHubUnityStuff\UnityMagickGame\MagickGame\Temp\bin\Debug\UnityEditor.dll
+C:\Users\jruec_000\Documents\GitHubUnityStuff\UnityMagickGame\MagickGame\Temp\bin\Debug\UnityEngine.dll
+C:\Users\jruec_000\Documents\GitHubUnityStuff\UnityMagickGame\MagickGame\Temp\bin\Debug\UnityEngine.Networking.dll
+C:\Users\jruec_000\Documents\GitHubUnityStuff\UnityMagickGame\MagickGame\Temp\bin\Debug\UnityEngine.UI.dll
+C:\Users\jruec_000\Documents\GitHubUnityStuff\UnityMagickGame\MagickGame\Temp\bin\Debug\Mono.Cecil.dll
+C:\Users\jruec_000\Documents\GitHubUnityStuff\UnityMagickGame\MagickGame\Temp\bin\Debug\Unity.SerializationLogic.dll
+C:\Users\jruec_000\Documents\GitHubUnityStuff\UnityMagickGame\MagickGame\Temp\bin\Debug\Unity.DataContract.dll
+C:\Users\jruec_000\Documents\GitHubUnityStuff\UnityMagickGame\MagickGame\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+C:\Users\jruec_000\Documents\GitHubUnityStuff\UnityMagickGame\MagickGame\Temp\bin\Debug\Unity.UNetWeaver.dll
+C:\Users\jruec_000\Documents\GitHubUnityStuff\UnityMagickGame\MagickGame\Temp\bin\Debug\Unity.CecilTools.dll
+C:\Users\jruec_000\Documents\GitHubUnityStuff\UnityMagickGame\MagickGame\Temp\bin\Debug\Mono.Cecil.Pdb.dll
+C:\Users\jruec_000\Documents\GitHubUnityStuff\UnityMagickGame\MagickGame\Temp\bin\Debug\Mono.Cecil.Mdb.dll
+C:\Users\jruec_000\Documents\GitHubUnityStuff\UnityMagickGame\MagickGame\Temp\bin\Debug\UnityEngine.xml
+C:\Users\jruec_000\Documents\GitHubUnityStuff\UnityMagickGame\MagickGame\Temp\bin\Debug\UnityEditor.xml
+C:\Users\jruec_000\Documents\GitHubUnityStuff\UnityMagickGame\MagickGame\Temp\bin\Debug\UnityEngine.UI.xml
+C:\Users\jruec_000\Documents\GitHubUnityStuff\UnityMagickGame\MagickGame\Temp\bin\Debug\UnityEngine.Networking.xml
+C:\Users\jruec_000\Documents\GitHubUnityStuff\UnityMagickGame\MagickGame\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+C:\Users\jruec_000\Documents\GitHubUnityStuff\UnityMagickGame\MagickGame\obj\Debug\Assembly-CSharp.dll
+C:\Users\jruec_000\Documents\GitHubUnityStuff\UnityMagickGame\MagickGame\obj\Debug\Assembly-CSharp.pdb
