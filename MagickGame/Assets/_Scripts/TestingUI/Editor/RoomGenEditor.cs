@@ -21,11 +21,13 @@ public class RoomGenEditor : Editor {
 		}
 
 		if (GUILayout.Button ("Save Copy as prefab")) {
-			prefab = PrefabUtility.CreatePrefab ("Assets/_Prefabs/Resources/Rooms/" + 
-				RoomGenScript.getPrefabResourcesPath(wingType) + wingType.ToString() + 
-				genScript.saveAsName + ".prefab", genScript.gameObject);
+			if (genScript.transform.childCount > 0) {
+				string path = "Assets/_Prefabs/Resources/Rooms/" +
+				             RoomGenScript.getPrefabResourcesPath (wingType) + wingType.ToString () +
+				             genScript.saveAsName + ".prefab";
 
-			DestroyImmediate (prefab.GetComponent<RoomGenScript> (), true);
+				prefab = PrefabUtility.CreatePrefab (path, genScript.transform.GetChild (0).gameObject);
+			}
 		}
 	}
 }

@@ -56,6 +56,10 @@ public class RoomGenScript : MonoBehaviour {
 		#endregion
 
 		ClearRoom ();
+
+		Transform roomTran = new GameObject ("Room").transform;
+		roomTran.SetParent (this.transform);
+
 		
 		Quaternion rightEdge = Quaternion.Euler(0, 0, 90);
 		Quaternion topEdge = Quaternion.Euler(0, 0, 180);
@@ -64,33 +68,33 @@ public class RoomGenScript : MonoBehaviour {
 
 		#region CornerTileCreation
 		Vector2 coords = new Vector2 (0, 0);
-		tiles.Add (coords, Ego.AddGameObject (Instantiate (cornerWallTile, coords, Quaternion.identity, this.transform) as GameObject).gameObject);//bottomLeft corner
+		tiles.Add (coords, Instantiate (cornerWallTile, coords, Quaternion.identity, roomTran) as GameObject);//bottomLeft corner
 
 		coords = new Vector2 (roomWidth - 1, 0);
-		tiles.Add (coords, Ego.AddGameObject (Instantiate (cornerWallTile, coords, rightEdge, this.transform) as GameObject).gameObject);//bottomRight corner
+		tiles.Add (coords, Instantiate (cornerWallTile, coords, rightEdge, roomTran) as GameObject);//bottomRight corner
 
 		coords = new Vector2 (roomWidth - 1, roomHeight - 1);
-		tiles.Add (coords, Ego.AddGameObject (Instantiate (cornerWallTile, coords, topEdge, this.transform) as GameObject).gameObject);//topRight corner
+		tiles.Add (coords, Instantiate (cornerWallTile, coords, topEdge, roomTran) as GameObject);//topRight corner
 
 		coords = new Vector2 (0, roomHeight - 1);
-		tiles.Add (coords, Ego.AddGameObject (Instantiate (cornerWallTile, coords, leftEdge, this.transform) as GameObject).gameObject);//topLeft corner
+		tiles.Add (coords, Instantiate (cornerWallTile, coords, leftEdge, roomTran) as GameObject);//topLeft corner
 		#endregion
 
 		#region WallTileCreation
 		for (int i = 1; i < roomWidth - 1; i++) {//from left to right 
 			coords = new Vector2 (i, 0);//bottom edge of walls
-			tiles.Add (coords, Ego.AddGameObject (Instantiate (wallTile, coords, Quaternion.identity, this.transform) as GameObject).gameObject);
+			tiles.Add (coords, Instantiate (wallTile, coords, Quaternion.identity, roomTran) as GameObject);
 
 			coords = new Vector2 (i, roomHeight - 1);//top edge of walls
-			tiles.Add (coords, Ego.AddGameObject (Instantiate (wallTile, coords, topEdge, this.transform) as GameObject).gameObject);
+			tiles.Add (coords, Instantiate (wallTile, coords, topEdge, roomTran) as GameObject);
 		}
 
 		for (int i = 1; i < roomHeight - 1; i++) {//bottom to top 
 			coords = new Vector2 (roomWidth - 1, i);//right edge of walls
-			tiles.Add (coords, Ego.AddGameObject (Instantiate (wallTile, coords, rightEdge, this.transform) as GameObject).gameObject);
+			tiles.Add (coords, Instantiate (wallTile, coords, rightEdge, roomTran) as GameObject);
 
 			coords = new Vector2 (0, i);//left edge of walls
-			tiles.Add (coords, Ego.AddGameObject (Instantiate (wallTile, coords, leftEdge, this.transform) as GameObject).gameObject);
+			tiles.Add (coords, Instantiate (wallTile, coords, leftEdge, roomTran) as GameObject);
 		}
 		#endregion
 
@@ -99,17 +103,16 @@ public class RoomGenScript : MonoBehaviour {
 		for (int x = 1; x < roomWidth - 1; x++) {
 			for (int y = 1; y < roomHeight - 1; y++) {
 				coords = new Vector2 (x, y);
-				tiles.Add (coords, Ego.AddGameObject (Instantiate (floorTile, coords, Quaternion.identity, this.transform) as GameObject).gameObject);
+				tiles.Add (coords, Instantiate (floorTile, coords, Quaternion.identity, roomTran) as GameObject);
 			}
 		}
 		#endregion
 
-		//make this a part of EgoCS
-		Ego.AddGameObject (this.gameObject);
-		EgoComponent egoComp = this.GetComponent<EgoComponent> ();
+
+
 
 		#region PolygonColliderCreation
-		PolygonCollider2D pCol = Ego.AddComponent<PolygonCollider2D> (egoComp);
+		PolygonCollider2D pCol = roomTran.gameObject.AddComponent<PolygonCollider2D>();
 		pCol.pathCount = 2;
 
 		//setting up first path, which defines the outer bounds
@@ -133,23 +136,14 @@ public class RoomGenScript : MonoBehaviour {
 		#endregion
 	}
 
-	//removes all tiles and room defining components from this room and clear the dictionary references to said tiles to make it a or clear room
+	//destroys the child GameObject (that represents the room) from this room generator and clears the dictionary references to the tiles on the childto make it a clear room
 	public void ClearRoom () {
 		//destroy all tiles
 		tiles.Clear ();
-		MiscUtilities.DestroyImmediateAllChildren (this.transform);
-
-		//destroy the collider responsible for the walls
-		PolygonCollider2D pCol = this.GetComponent<PolygonCollider2D> ();
-		if (pCol != null) {
-			DestroyImmediate (pCol);
-		}
-
-		//remove this.gameobject from EgoCS due to DestroyImmediate invalidating its information on this.gameobject
-		EgoComponent egoComp = this.GetComponent<EgoComponent> ();
-		if (egoComp != null) {
-			DestroyImmediate (egoComp);
-		}
+		if (this.transform.childCount > 0)
+			DestroyImmediate (this.transform.GetChild (0).gameObject);
+		else
+			Debug.Log ("Nothing needed to be cleared");
 	}
 
 }
